@@ -1,0 +1,15 @@
+name = "blog-momo"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./build/client"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blog-momo-db"
+database_id = "aa368416-bc12-4ad2-a5f5-538ebb2d35f7"
+
+[[r2_buckets]]
+binding = "BLOG_ASSETS"
+bucket_name = "blog-momo-assets"
+
+[vars]
+PUBLIC_SITE_URL = "https://blog.momo-platform.com"
