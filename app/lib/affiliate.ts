@@ -1,3 +1,5 @@
+import { marked } from "marked";
+
 /**
  * Affiliate link processing
  * 
@@ -10,6 +12,12 @@ export interface AffiliateData {
   url: string;
   description: string;
 }
+
+// Configure marked for safe rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
 
 /**
  * Parse affiliate shortcode from content
@@ -26,32 +34,41 @@ export function parseAffiliateShortcode(shortcode: string): AffiliateData | null
 }
 
 /**
- * Replace affiliate shortcodes with styled HTML cards
+ * Process affiliate links and convert to HTML cards
  */
-export function processAffiliateLinks(content: string, affiliateId?: string): string {
-  // Match all affiliate shortcodes
+function processAffiliateLinksInternal(content: string, affiliateId?: string): string {
   const regex = /\[affiliate:([^:]+):([^:]+):([^\]]+)\]/g;
 
   return content.replace(regex, (match, title, url, description) => {
-    // Add affiliate ID to URL if provided
     let finalUrl = url.trim();
     if (affiliateId && url.includes("amazon")) {
-      // Amazon affiliate link format
       const separator = url.includes("?") ? "&" : "?";
       finalUrl = `${url}${separator}tag=${affiliateId}`;
     }
 
-    return `
-<aside class="affiliate-card">
+    // Return a placeholder that won't be affected by markdown parsing
+    return `\n\n<div class="affiliate-card">
   <p class="affiliate-card__eyebrow">そっと置いておくメモ</p>
   <h3 class="affiliate-card__title">${title.trim()}</h3>
   <p class="affiliate-card__desc">${description.trim()}</p>
   <a href="${finalUrl}" rel="nofollow sponsored noopener" target="_blank" class="affiliate-card__link">
     詳しく見る
   </a>
-</aside>
-    `.trim();
+</div>\n\n`;
   });
+}
+
+/**
+ * Process content: Markdown → HTML + Affiliate cards
+ */
+export function processAffiliateLinks(content: string, affiliateId?: string): string {
+  // First, process affiliate links
+  let processed = processAffiliateLinksInternal(content, affiliateId);
+  
+  // Then convert Markdown to HTML
+  processed = marked.parse(processed) as string;
+  
+  return processed;
 }
 
 /**
