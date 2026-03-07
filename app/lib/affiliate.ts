@@ -13,10 +13,19 @@ export interface AffiliateData {
   description: string;
 }
 
+// Custom renderer for images
+const renderer = new marked.Renderer();
+renderer.image = (href: string, title: string | null, text: string) => {
+  const alt = text || "";
+  const titleAttr = title ? ` title="${title}"` : "";
+  return `<img src="${href}" alt="${alt}"${titleAttr} class="article-image" loading="lazy" />`;
+};
+
 // Configure marked for safe rendering
 marked.setOptions({
   breaks: true,
   gfm: true,
+  renderer: renderer,
 });
 
 /**

@@ -239,6 +239,18 @@ a:hover {
   object-fit: contain;
 }
 
+/* Article image class */
+.article-image {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  margin: 24px auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 .article__body {
   font-size: 1rem;
   line-height: 2;
@@ -549,4 +561,146 @@ a:hover {
   display: flex;
   gap: 12px;
   margin-top: 32px;
+}
+
+/* ===== Responsive Design ===== */
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .article {
+    padding: 24px 16px;
+    margin: 0 0 16px;
+    border-radius: 8px;
+  }
+
+  .article__title {
+    font-size: 1.4rem;
+    line-height: 1.4;
+  }
+
+  .article__hero,
+  .article-image {
+    max-height: 250px;
+    margin: 16px auto;
+    border-radius: 6px;
+  }
+
+  .article__body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .article__body h2 {
+    font-size: 1.2rem;
+    margin: 32px 0 16px;
+  }
+
+  .article__body h3 {
+    font-size: 1.1rem;
+    margin: 24px 0 12px;
+  }
+
+  .article__body p {
+    margin-bottom: 20px;
+  }
+
+  .affiliate-card {
+    padding: 16px;
+    margin: 24px 0;
+    border-radius: 8px;
+  }
+
+  .affiliate-card__title {
+    font-size: 1rem;
+  }
+
+  .affiliate-card__desc {
+    font-size: 0.9rem;
+  }
+
+  .post-card {
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  .post-card__image {
+    height: 160px;
+  }
+
+  .post-card__content {
+    padding: 16px;
+  }
+
+  .post-card__title {
+    font-size: 1.1rem;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .header {
+    padding: 16px 0;
+    margin-bottom: 24px;
+  }
+
+  .header__logo {
+    font-size: 1.25rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer {
+    padding: 24px 16px;
+    margin-top: 40px;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .article {
+    padding: 32px;
+  }
+
+  .article__hero,
+  .article-image {
+    max-height: 350px;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr 240px;
+    gap: 32px;
+  }
+
+  .sidebar__section {
+    padding: 16px;
+  }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  .article {
+    padding: 48px;
+  }
+
+  .article__hero,
+  .article-image {
+    max-height: 450px;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr 300px;
+    gap: 48px;
+  }
+
+  .container {
+    max-width: 1080px;
+  }
 }
